@@ -53,3 +53,13 @@ export async function login(email, password) {
     },
   };
 }
+
+export async function getUserById(userId) {
+  const user = await userRepository.findById(userId);
+
+  if (!user) {
+    throw { status: 401, message: "Usuário não encontrado." };
+  }
+
+  return user;
+}

@@ -1,3 +1,5 @@
+import * as authService from "../services/authService.js";
+
 export async function getUser(req, res) {
   const userId = req.user.id;
 

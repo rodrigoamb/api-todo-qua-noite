@@ -1,3 +1,5 @@
+import * as authService from "../services/authService.js";
+
 export async function register(req, res) {
   const { name, email, password } = req.body;
 
