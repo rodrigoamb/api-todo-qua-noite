@@ -6,12 +6,12 @@ const Task = db.define(
   "Task",
   {
     id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     user_id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: User,

@@ -16,8 +16,12 @@ export async function register(req, res) {
       .status(201)
       .json({ message: "Usuário cadastrado com sucesso", user });
   } catch (error) {
+    if (error.status === 403) {
+      res.status(403).json({ message: error.message, error });
+    }
+
     console.error(error);
-    res.status(400).json({ message: "Erro ao criar o usuário", error });
+    res.status(500).json({ message: "Erro ao criar o usuário", error });
   }
 }
 

@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
-import jsw from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import * as userRepository from "../repositories/userRepository.js"
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRE_IN = process.env.JWT_EXPIRE_IN;
@@ -8,7 +9,7 @@ export async function register(name, email, password) {
   const existUser = await userRepository.findByEmail(email);
 
   if (existUser) {
-    throw { status: 400, message: "Usuário já existe" };
+    throw { status: 403, message: "Usuário já existe" };
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -52,14 +53,4 @@ export async function login(email, password) {
       email: existUser.email,
     },
   };
-}
-
-export async function getUserById(userId) {
-  const user = await userRepository.findById(userId);
-
-  if (!user) {
-    throw { status: 401, message: "Usuário não encontrado." };
-  }
-
-  return user;
 }
